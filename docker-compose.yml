@@ -10,7 +10,7 @@ services:
       - ./uploaded_files:/app/uploaded_files
       - .:/app
     environment:
-      - STREAMLIT_APP=embeddings_streamlit_5.py
+      - STREAMLIT_APP=embeddings_streamlit_3.py
     command: >
       sh -c "\
              echo 📄 Lancement avec $${STREAMLIT_APP} && \

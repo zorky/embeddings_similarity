@@ -4,7 +4,7 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import numpy as np
 
-MAX_LABEL=60
+MAX_LABEL=80
 
 # Texte de la requête et documents
 query_text = "l’intelligence artificielle dans l’éducation"
