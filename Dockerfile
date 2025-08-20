@@ -1,5 +1,4 @@
-# Image de base avec Python
-FROM python:3.10-slim
+FROM python:3.11-slim
 
 # Dépendances système pour PyMuPDF (fitz) et matplotlib
 RUN apt-get update && apt-get install -y \
