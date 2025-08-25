@@ -15,7 +15,8 @@ MODEL_LIST = [
     "all-mpnet-base-v2",
     "paraphrase-MiniLM-L3-v2",
     "multi-qa-MiniLM-L6-cos-v1",
-    "distiluse-base-multilingual-cased-v2"
+    "distiluse-base-multilingual-cased-v2",
+    "dangvantuan/sentence-camembert-base",
 ]
 
 DEFAULT_TEXTS = [
