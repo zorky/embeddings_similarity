@@ -7,13 +7,13 @@ import plotly.express as px
 from referentiels.models import embeddings_models
 
 # 📌 Liste de modèles disponibles
-MODEL_LIST = embeddings_models
-# MODEL_LIST = [
-#     "all-MiniLM-L6-v2",
-#     "paraphrase-MiniLM-L3-v2",
-#     "multi-qa-MiniLM-L6-cos-v1",
-#     "distiluse-base-multilingual-cased-v2"
-# ]
+# MODEL_LIST = embeddings_models
+MODEL_LIST = [
+    "all-MiniLM-L6-v2",
+    "paraphrase-MiniLM-L3-v2",
+    "multi-qa-MiniLM-L6-cos-v1",
+    "distiluse-base-multilingual-cased-v2"
+]
 
 # 📋 Textes et question par défaut
 DEFAULT_TEXTS = [

@@ -30,6 +30,7 @@ Lancer l'application Streamlit
 
 ```bash
 $ streamlit run embeddings_streamlit_1.py
+$ streamlit run embeddings_st_bench_umap.py
 ```
 
 # Streamlit par docker
@@ -57,3 +58,5 @@ $ uv init
 $ uv add -r requirements.txt # https://pydevtools.com/handbook/how-to/migrate-requirements.txt/
 $ uv add sentence-transformers scikit-learn matplotlib streamlit PyMuPDF pandas umap-learn
 ```
+
+
