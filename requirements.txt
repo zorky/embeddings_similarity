@@ -1,6 +1,10 @@
 sentence-transformers
 scikit-learn
 matplotlib
-streamlit
 PyMuPDF
 pandas
+
+streamlit
+
+umap-learn
+plotly

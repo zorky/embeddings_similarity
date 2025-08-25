@@ -46,3 +46,14 @@ dans le docker-compose.yml, modifier le fichier Streamlit souhaité, section env
 ```
 
 valeur possible : embeddings_streamlit_1 à 5.py
+
+## UV
+
+```bash
+$ uv venv
+$ uv init
+# $ uv pip sync requirements.txt
+# $ uv lock # n'ajoute pas les packages re requirements.txt
+$ uv add -r requirements.txt # https://pydevtools.com/handbook/how-to/migrate-requirements.txt/
+$ uv add sentence-transformers scikit-learn matplotlib streamlit PyMuPDF pandas umap-learn
+```
