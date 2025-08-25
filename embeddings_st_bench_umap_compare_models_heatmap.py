@@ -9,15 +9,11 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 import io
 
+# from embeddings_st_bench_pca import MODEL_LIST
+from referentiels.models import embeddings_models
+
 # 📌 Liste de modèles disponibles
-MODEL_LIST = [
-    "all-MiniLM-L6-v2",
-    "all-mpnet-base-v2",
-    "paraphrase-MiniLM-L3-v2",
-    "multi-qa-MiniLM-L6-cos-v1",
-    "distiluse-base-multilingual-cased-v2",
-    "dangvantuan/sentence-camembert-base",
-]
+MODEL_LIST = embeddings_models
 
 DEFAULT_TEXTS = [
     "Le soleil brille aujourd'hui sur Paris.",
