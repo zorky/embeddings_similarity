@@ -17,18 +17,27 @@ st.set_page_config(page_title="Similarité Cosinus - Fichiers", layout="wide")
 st.title("📁 Analyse de similarité entre une requête et des fichiers")
 
 # Choix du modèle
-model_choice = st.selectbox("🧠 Choisissez un modèle d'embedding", [
-    "all-MiniLM-L6-v2",
-    "all-mpnet-base-v2",
-    "paraphrase-MiniLM-L6-v2",
-    "multi-qa-MiniLM-L6-cos-v1"
-])
+model_choice = st.selectbox(
+    "🧠 Choisissez un modèle d'embedding",
+    [
+        "all-MiniLM-L6-v2",
+        "all-mpnet-base-v2",
+        "paraphrase-MiniLM-L6-v2",
+        "multi-qa-MiniLM-L6-cos-v1",
+    ],
+)
 
 # Entrée de la requête
-query_text = st.text_input("🔍 Requête (texte ou question)", "l’intelligence artificielle dans l’éducation")
+query_text = st.text_input(
+    "🔍 Requête (texte ou question)", "l’intelligence artificielle dans l’éducation"
+)
 
 # Upload de fichiers
-uploaded_files = st.file_uploader("📂 Chargez vos fichiers (.txt ou .pdf)", type=["txt", "pdf"], accept_multiple_files=True)
+uploaded_files = st.file_uploader(
+    "📂 Chargez vos fichiers (.txt ou .pdf)",
+    type=["txt", "pdf"],
+    accept_multiple_files=True,
+)
 
 # Enregistrement local des fichiers uploadés
 # for file in uploaded_files:
@@ -38,6 +47,7 @@ uploaded_files = st.file_uploader("📂 Chargez vos fichiers (.txt ou .pdf)", ty
 
 # Seuil
 threshold = st.slider("🎚️ Seuil de similarité minimale", 0.0, 1.0, 0.3, step=0.05)
+
 
 # Fonction d’extraction texte
 def extract_text(file):
@@ -50,6 +60,7 @@ def extract_text(file):
                 text += page.get_text()
         return text
     return ""
+
 
 # Bouton de traitement
 if st.button("🧠 Analyser les similarités") and uploaded_files:
@@ -71,24 +82,41 @@ if st.button("🧠 Analyser les similarités") and uploaded_files:
             file_vecs = model.encode(file_texts)
             sims = cosine_similarity(file_vecs, query_vec).flatten()
 
-            ranked = sorted(zip(file_names, file_texts, sims, file_vecs), key=lambda x: x[2], reverse=True)
-            filtered = [(name, text, sim, vec) for name, text, sim, vec in ranked if sim >= threshold]
+            ranked = sorted(
+                zip(file_names, file_texts, sims, file_vecs),
+                key=lambda x: x[2],
+                reverse=True,
+            )
+            filtered = [
+                (name, text, sim, vec)
+                for name, text, sim, vec in ranked
+                if sim >= threshold
+            ]
 
             if not filtered:
                 st.warning("Aucun fichier ne dépasse le seuil.")
             else:
                 # Projection PCA
                 names, texts, sims_filtered, vecs_filtered = zip(*filtered)
-                reduced = PCA(n_components=2).fit_transform(np.vstack([query_vec, vecs_filtered]))
+                reduced = PCA(n_components=2).fit_transform(
+                    np.vstack([query_vec, vecs_filtered])
+                )
                 query_2d, docs_2d = reduced[0], reduced[1:]
 
                 fig, ax = plt.subplots(figsize=(9, 6))
-                ax.scatter(docs_2d[:, 0], docs_2d[:, 1], c='blue', label='Fichiers')
-                ax.scatter(query_2d[0], query_2d[1], c='red', marker='X', s=100, label='Requête')
+                ax.scatter(docs_2d[:, 0], docs_2d[:, 1], c="blue", label="Fichiers")
+                ax.scatter(
+                    query_2d[0],
+                    query_2d[1],
+                    c="red",
+                    marker="X",
+                    s=100,
+                    label="Requête",
+                )
 
                 for i, (x, y) in enumerate(docs_2d):
                     ax.text(x + 0.01, y + 0.01, f"{sims_filtered[i]:.2f}", fontsize=9)
-                    ax.text(x + 0.01, y - 0.04, f"{i+1}. {names[i][:20]}", fontsize=8)
+                    ax.text(x + 0.01, y - 0.04, f"{i + 1}. {names[i][:20]}", fontsize=8)
 
                 ax.set_title("Projection PCA 2D - Requête vs Fichiers")
                 ax.set_xlabel("PCA 1")
@@ -100,15 +128,19 @@ if st.button("🧠 Analyser les similarités") and uploaded_files:
                 st.markdown("### 📊 Résultats triés (fichiers au-dessus du seuil)")
 
                 results = []
-                for i, (name, sim, text) in enumerate(zip(names, sims_filtered, texts), 1):
+                for i, (name, sim, text) in enumerate(
+                    zip(names, sims_filtered, texts), 1
+                ):
                     st.markdown(f"**{i}. `{name}`** – Similarité : `{sim:.4f}`")
                     st.markdown(f"> _Extrait_ : {text.strip()[:300]}…")
-                    results.append({
-                        "Rang": i,
-                        "Nom du fichier": name,
-                        "Similarité": round(sim, 4),
-                        "Extrait": text.strip()[:500]
-                    })
+                    results.append(
+                        {
+                            "Rang": i,
+                            "Nom du fichier": name,
+                            "Similarité": round(sim, 4),
+                            "Extrait": text.strip()[:500],
+                        }
+                    )
 
                 # Export CSV
                 df = pd.DataFrame(results)
@@ -120,5 +152,5 @@ if st.button("🧠 Analyser les similarités") and uploaded_files:
                     label="📥 Télécharger les résultats en CSV",
                     data=csv_data,
                     file_name="resultats_similarite.csv",
-                    mime="text/csv"
+                    mime="text/csv",
                 )

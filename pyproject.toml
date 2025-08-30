@@ -10,10 +10,17 @@ dependencies = [
     "pandas>=2.3.2",
     "plotly>=6.3.0",
     "pymupdf>=1.26.3",
+    "ruff>=0.12.10",
     "scikit-learn>=1.7.1",
     "seaborn>=0.13.2",
     "sentence-transformers>=5.1.0",
     "streamlit>=1.48.1",
     "umap-learn>=0.5.9.post2",
     "xlsxwriter>=3.2.5",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.12.10",
+    "ty>=0.0.1a19",
 ]

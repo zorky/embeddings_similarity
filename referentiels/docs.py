@@ -3,5 +3,5 @@ default_docs = [
     "les voitures autonomes sur les routes",
     "l’apprentissage automatique et les étudiants",
     "le réchauffement climatique et les océans",
-    "l’enseignement assisté par IA en classe"
+    "l’enseignement assisté par IA en classe",
 ]
